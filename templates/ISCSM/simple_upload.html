@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+
+    <!--link href="/static/ISCSM/assets/css/themes/elegant/responsive.css" rel="stylesheet" type="text/css"/>
+    <!- END CSS TEMPLATE -->
+    <style>
+    .input-group .form-control {
+        z-index: 0;
+        float: none;
+    }
+    textarea {
+        width:100%;
+    }
+    .textwrapper {
+        color: #0000FF;
+        border:3px solid #428bca;
+        margin:5px 0;
+        padding:3px;
+    }
+    .hidebtn {
+        text-align: left !important;
+        width: 100%;
+        height: 30px;
+        color: white;
+        background-color: #22262e;
+        border:0 none;
+        padding-left: 52px;
+    }
+    .hidebtn:hover {
+        background: #1b1e24 !important ;
+    }
+    input[type="password"] {
+        margin-top: -9px;
+    }
+    .hiddenradio {
+    	width: 1px;
+    }
+    .modal-warning {
+        padding: 10px 0 10px 62px;
+        font-weight: bold;
+        color: red;
+    }
+    .red-star {
+        font-weight: 500;
+        color: red;
+    }
+    .table-bordered td {
+        vertical-align: middle !important;
+        border: 1px solid #8b91a0 !important;
+    }
+    .table-bordered th {
+        border: 1px solid #8b91a0 !important;
+        background-color: #4e535d;
+        text-align: center;
+        vertical-align: middle !important;
+        color: #ffffff;
+    }
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="page-content">
+            <div class="content">
+                <div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+                    <h3 class="title">Document Storage</h3>
+                </div>
+                <div class="grid simple horizontal green">
+                    <div class="grid-body">
+                        <form class="w3-container w3-card-4 form-inline" method="post" enctype="multipart/form-data" action="/handle_document">
+                            {% csrf_token %}
+                            <input id="input-b2" name="myfile" type="file" class="file" data-show-preview="false" multiple>
+                            <input id="upload_path" type="hidden">
+                            <div class="form-group" style="width: -webkit-fill-available; padding: 10px 0;">
+                                <div class="pull-right">
+                                    {% if perms.ISCSM.add_uploadcategory %}
+                                    &nbsp;
+                                    <button type="button" class="btn" id="create_category" data-toggle="modal" data-target="#createcategory" style="width: 35px;">
+                                        <i class="glyphicon glyphicon-asterisk"></i>
+                                    </button>
+                                    <div class="modal fade" id="createcategory" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h3 class="modal-title">New category</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="row" style="padding: 10px 0;">
+                                                            <div class="col-md-6 col-md-offset-3" style="padding: 0;">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon primary">Name</span>
+                                                                    <input type="text" id="create_name" class="form-control">
+                                                                </div>
+                                                                <div id="create_name_warn" class="modal-warning"></div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon primary" style="padding: 0 16px;">Title</span>
+                                                                    <input type="text" id="create_title" class="form-control" value=" ">
+                                                                </div>
+                                                                <div class="input-group" style="padding: 20px 0;">
+                                                                    <span class="input-group-addon primary" style="padding: 0 14px;">Path</span>
+                                                                    <input type="text" id="create_path" class="form-control" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1 red-star"><i class="glyphicon glyphicon-asterisk" style="font-size: 8px;"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div id="create_submit" class="btn btn-primary">OK</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if perms.ISCSM.change_uploadcategory %}
+                                    {% if listsubdoctype.0.name != 'traceback' or listsubdoctype|length > 1 %}
+                                    <button type="button" class="btn" id="edit_category" data-toggle="modal" data-target="#editcategory" style="width: 35px;">
+                                        <i class="glyphicon glyphicon-wrench"></i>
+                                    </button>
+                                    <div class="modal fade" id="editcategory" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h3 class="modal-title">Edit category</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="row" style="padding: 10px 0;">
+                                                            <div class="col-md-1 col-md-offset-3" style="padding: 0;">
+                                                                <div class="form-group">
+                                                                    <select name="select_edit" id="select_edit" class="form-control">
+                                                                        {% for doctype in listsubdoctype %}
+                                                                        {%  if doctype.name != 'traceback' %}
+                                                                        <option value={{ doctype.name }}>{{ doctype.name }}</option>
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-md-offset-1" style="padding: 0;">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon primary">Name</span>
+                                                                    <input type="text" id="edit_name" class="form-control">
+                                                                </div>
+                                                                <div id="edit_name_warn" class="modal-warning"></div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon primary" style="padding: 0 16px;">Title</span>
+                                                                    <input type="text" id="edit_title" class="form-control" value=" ">
+                                                                </div>
+                                                                <div class="input-group" style="padding: 20px 0;">
+                                                                    <span class="input-group-addon primary" style="padding: 0 14px;">Path</span>
+                                                                    <input type="text" id="edit_path" class="form-control" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div id="edit_submit" class="btn btn-primary">OK</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% if perms.ISCSM.delete_uploadcategory %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <button type="submit" class="btn btn-primary" name="upload" value="file" style="width: 110px;">
+                                    <i class="fa fa-cloud-upload">&nbsp;<b>Upload</b></i>
+                                </button>
+                            </div>
+                            {% if result %}
+                            <div class="modal fade" id="upload_result" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h3 class="modal-title">Upload results</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            {% if result %}
+                                                <table class="table table-bordered" align="center" style="width: 500px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>File</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for upload in result %}
+                                                        <tr>
+                                                            <td>{{upload.File}}</td>
+                                                            <td>{{upload.Status}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="btn btn-primary" data-dismiss="modal">OK</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <hr width="100%" style="height:1px;background-color:#cccccc;" />
+                        </form>
+                        <form id="form2" method="get" action="/handle_document">
+                            <table class="table table-hover table-condensed table-striped" id="doc_table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1px;"></th>
+                                        <th>Name</th>
+                                        <th>Date Upload</th>
+                                        <th>Creator</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for subdoctype in listsubdoctype %}
+                                    <tr id="{{ subdoctype.name }}">
+                                        {% if subdoctype.name != 'traceback' %}
+                                        <td><input type="checkbox" name="list_folder" value="{{ subdoctype.id }}"></td>
+                                        {% else %}
+                                        <td></td>
+                                        {% endif %}
+                                        <td>{{ subdoctype.title }}
+                                            <input id="{{ subdoctype.name }}" type="hidden">
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% for file in listfile %}
+                                    <tr id="{{ file.filename }}">
+                                        <td><input type="checkbox" name="list_file" value="{{ file.id }}"></td>
+                                        <td><a href="{{ file.file.url }}" >{{ file.filename }}</a></td>
+                                        <td><span class="muted">{{ file.upload_date }}</span></td>
+                                        <td><span class="muted">{{ file.creator }}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% if perms.ISCSM.delete_upload %}
+                            <button type="submit" name="action" value="delete" class="btn btn-danger pull-right">Del</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="addNewRow"></div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/chat.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/demo.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/fileinput.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/colResizable-1.5.min.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN Export Table-->
+    <!-- END PAGE LEVEL PLUGINS -->
+    <script src="/static/ISCSM/assets/js/datatables.js" type="text/javascript"></script>
+    <!-- BEGIN Export Table -->
+    <script src="/static/ISCSM/assets/js/tableToExcelSV.js"></script>
+    <!-- END Export Table -->
+    <!-- END Export Table- -->
+    <script>
+    $(document).ready( function () {
+        $('#upload_result').modal({show: true});
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var path = getParameterByName('path');
+        if (!path)
+            path = '/';
+
+        $('#upload_path').attr('name', 'path').attr('value', encodeURIComponent(path));
+        $('#create_path').val(path);
+
+        $('#filter').change(function () {
+            var url = '/document?doctype=' + $('#filter').val();
+            window.location.replace(url)
+        });
+
+        $('#create_submit').click(function () {
+            var name = $('#create_name').val();
+            var title = $('#create_title').val();
+
+            $.ajax({
+                url:        '/handle_document',
+                data:       {
+                    'name':     name,
+                    'title':    title,
+                    'path':     path,
+                    'action':   'create_category',
+                },
+                dataType:   'json',
+                success:    function (data) {
+                    for (i=0; i<data.name.length; i++)
+                        $('#create_name_warn').html(data.name + '<br \>');
+                },
+                error:      function () {
+                    location.reload();
+                },
+            });
+        });
+
+        $('#edit_submit').click(function () {
+            var name = $('#edit_name').val();
+            var title = $('#edit_title').val();
+            var select = $('#select_edit :selected').text();
+            if (!name)
+                name = select
+
+            if ((name) || (title)) {
+                $.ajax({
+                    url:        '/handle_document',
+                    data:       {
+                        'name':     name,
+                        'title':    title,
+                        'select':   select,
+                        'path':     path,
+                        'action':   'edit_category',
+                    },
+                    dataType:   'json',
+                    success:    function (data) {
+                        for (i=0; i<data.name.length; i++)
+                            $('#del_name_warn').html(data.name + '<br \>');
+                    },
+                    error:      function () {
+                        location.reload();
+                    },
+                });
+            }
+        });
+
+        $('#edit_category').click(function () {
+            $('#edit_path').val(path);
+            var select = $('#select_edit :selected').text()
+            $('#edit_name').val(select)
+            {% for doctype in listsubdoctype %}
+                if (select == '{{ doctype.name }}')
+                    $('#edit_title').val('{{ doctype.title }}')
+            {% endfor %}
+        });
+
+        $('#select_edit').change(function () {
+            var select = $('#select_edit :selected').text()
+            $('#edit_name').val(select)
+            {% for doctype in listsubdoctype %}
+                if (select == '{{ doctype.name }}')
+                    $('#edit_title').val('{{ doctype.title }}')
+            {% endfor %}
+        });
+
+        {% for doctype in listsubdoctype %}
+        $(document).on("dblclick", "tr[id='{{ doctype.name }}']", function (){
+            if ("{{ doctype.name }}" != "traceback")
+                var path = "{{doctype.path}}" + "{{ doctype.name }}" + "/";
+            else
+                var path = "{{doctype.path}}";
+            $("input[id='{{ doctype.name }}']").attr('name','path').attr('value',`${path}`);
+            $('#form2').attr('action', '/document')
+            $('#form2').submit();
+        });
+        {% endfor %}
+
+    });
+    </script>
+    <!-- END JAVASCRIPTS -->
+    <!-- END CONTAINER -->
+</body>
+</html>

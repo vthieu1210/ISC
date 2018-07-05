@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <!--link href="/static/ISCSM/assets/css/themes/elegant/responsive.css" rel="stylesheet" type="text/css"/>
+    <!- END CSS TEMPLATE -->
+    <style>
+    .table-bordered td {
+        vertical-align: middle !important;
+        border: 1px solid #8b91a0 !important;
+    }
+    .table-bordered th {
+        border: 1px solid #8b91a0 !important;
+        background-color: #4e535d;
+        text-align: center;
+        vertical-align: middle !important;
+        color: #ffffff;
+    }
+    .sub_table tr:first-child td {
+        border-top: 0 !important;
+    }
+    .sub_table tr td {
+        border-bottom:  0 !important;
+        border-left:    0 !important;
+        border-right:   0 !important;
+    }
+    .grid {
+        margin-bottom: 0;
+    }
+    input.task-add {
+        padding: 0 10px !important;
+        border: 0;
+    }
+    .error {
+        color: red;
+        padding: 0 10px !important;
+        font-weight: 600;
+    }
+    .modal-body {
+      background-color: #e5e9ec;
+      width: 1200px;
+      padding: 5px;
+    }
+    .modal-content {
+      border: 0;
+      width: 1200px;
+    }
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+            <div class="clearfix"></div>
+            <div class="content">
+                <div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+                    <h3 class="title">Log Task</h3>
+                </div>
+                <div class="grid simple horizontal green">
+                    <div class="grid-body">
+                        <form method="GET" action="/export_task">
+                            <div class="pull-right">
+                                <button type="button" class="btn" id="add_task" style="width: 35px;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                                <button type="submit" class="btn" id="export_csv" style="width: 35px;">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </button>
+                            </div>
+                            <div class="pull-left">
+                                <div class="form-group">
+                                    <select class="form-control" name="assignee">
+                                        <option value="admin">admin</option>
+                                        <option value="hieuvt12">hieuvt12</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <br><br><br>
+                        <table width="100%" class="table table-bordered" id='service_table'>
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Start day</th>
+                                    <th>Due day</th>
+                                    <th>% Done</th>
+                                    <th>Status</th>
+                                    <th>Assignee</th>
+                                    <th>Department</th>
+                                    <th>Tracker</th>
+                                    <th>Complexity</th>
+                                    <th>Estimated time</th>
+                                    <th>Spent time</th>
+                                    <th>Actual End Date</th>
+                                    <th>Project</th>
+                                    <th width="10%">Utility</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+                                <tr>
+                                    <td style="padding: 10px !important;">{{task.subject}}</td>
+                                    <td style="padding: 10px !important;">{{task.start_date}}</td>
+                                    <td style="padding: 10px !important;">{{task.due_date}}</td>
+                                    <td style="padding: 10px !important;">{{task.done}}</td>
+                                    <td style="padding: 10px !important;">{{task.status}}</td>
+                                    <td style="padding: 10px !important;">{{task.assignee}}</td>
+                                    <td style="padding: 10px !important;">{{task.department}}</td>
+                                    <td style="padding: 10px !important;">{{task.tracker}}</td>
+                                    <td style="padding: 10px !important;">{{task.complexity}}</td>
+                                    <td style="padding: 10px !important;">{{task.estimated_time}}</td>
+                                    <td style="padding: 10px !important;">{{task.spent_time}}</td>
+                                    <td style="padding: 10px !important;">{{task.actual_end_date}}</td>
+                                    <td style="padding: 10px !important;">{{task.project}}</td>
+                                    <td style="padding: 0 10px !important">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <button type="button" class="btn" style="width: 30px; padding: 5px;" data-toggle="modal" data-target="#edit_{{task.id}}">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </button>
+                                            <input name="action" value="del_task" hidden></input>
+                                            <input name="id" value="{{task.id}}" hidden></input>
+                                            <button type="submit" class="btn" style="width: 30px; padding: 5px;">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </form>
+                                        <div class="modal fade" id="edit_{{task.id}}" role="dialog">
+                                            <div class="modal-dialog" style="width: 1200px">
+                                                <div class="modal-content">
+                                                    <form method="post">
+                                                    {% csrf_token %}
+                                                    <input name="action" value="edit_task" hidden></input>
+                                                    <input name="id" value="{{task.id}}" hidden></input>
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h3 class="modal-title">Edit Task</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <div class="row" style="padding: 10px;">
+                                                                <div class="col-md-3" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Subject</div>
+                                                                        <textarea rows="2" name="subject" class="form-control" style="width: 200px; border-color: #428bca;">{{task.subject}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Start day</div>
+                                                                        <input type="text" name="start_date" class="form-control" value="{{task.start_date}}" style="width: 100px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0; margin-left: 30px">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Due day</div>
+                                                                        <input type="text" name="due_date" class="form-control" value="{{task.due_date}}" style="width: 100px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0; margin-left: 30px">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">% Done</div>
+                                                                        <input type="text" name="done" class="form-control" value="{{task.done}}" style="width: 50px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Status</div>
+                                                                        <input type="text" name="status" class="form-control" value="{{task.status}}" style="width: 100px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="padding: 10px;">
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Assignee</div>
+                                                                        <input type="text" name="assignee" class="form-control" value="{{ request.user.username }}" style="width: 100px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-md-offset-1" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Department</div>
+                                                                        <input type="text" name="department" class="form-control" value="{{task.department}}" style="width: 80px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0; margin-left: 30px">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Tracker</div>
+                                                                        <input type="text" name="tracker" class="form-control" value="{{task.tracker}}" style="width: 80px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Complexity</div>
+                                                                        <input type="text" name="complexity" class="form-control" value="{{task.complexity}}" style="width: 50px; border-color: #428bca;">{{service.description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Project</div>
+                                                                        <input type="text" name="project" class="form-control" value="{{task.project}}" style="width: 100px; border-color: #428bca;">{{service.description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="padding: 10px;">
+                                                                <div class="col-md-2" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Estimated time</div>
+                                                                        <input type="text" name="estimated_time" class="form-control" value="{{task.estimated_time}}" style="width: 50px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-md-offset-1" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Spent time</div>
+                                                                        <input type="text" name="spent_time" class="form-control" value="{{task.spent_time}}" style="width: 80px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 col-md-offset-1" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Actual end date</div>
+                                                                        <input type="text" name="actual_end_date" class="form-control" value="{{task.actual_end_date}}" style="width: 100px; border-color: #428bca;">{{service.description}}</input>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">OK</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <tr style="display: none" id="add_task_row">
+                                        <td>
+                                            <input type="text" class="form-control task-add" name="subject" id="subject" value="{{request.subject}}">
+                                            {% if errors.subject.0%}
+                                                <div class="error">{{errors.subject.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control task-add" name="start_date" id="start_date" value="{{request.start_date}}">
+                                            {% if errors.start_date.0%}
+                                                <div class="error">{{errors.start_date.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="due_date" id="due_date" value="{{task_request.due_date}}">
+                                            {% if errors.due_date.0%}
+                                                <div class="error">{{errors.due_date.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="done" id="done" value="{{task_request.done}}">
+                                            {% if errors.done.0%}
+                                                <div class="error">{{errors.done.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="status" id="status" value="{{task_request.status}}">
+                                            {% if errors.status.0%}
+                                                <div class="error">{{errors.status.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="assignee" id="assignee" value="{{request.user.username}}">
+                                            {% if errors.assignee.0%}
+                                                <div class="error">{{errors.assignee.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="department" id="department" value="{{task_request.department}}">
+                                            {% if errors.department.0%}
+                                                <div class="error">{{errors.department.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="tracker" id="tracker" value="{{task_request.tracker}}">
+                                            {% if errors.tracker.0%}
+                                                <div class="error">{{errors.tracker.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="complexity" id="complexity" value="{{task_request.complexity}}">
+                                            {% if errors.complexity.0%}
+                                                <div class="error">{{errors.complexity.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="estimated_time" id="estimated_time" value="{{task_request.estimated_time}}">
+                                            {% if errors.estimated_time.0%}
+                                                <div class="error">{{errors.estimated_time.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="spent_time" id="spent_time" value="{{task_request.spent_time}}">
+                                            {% if errors.spent_time.0%}
+                                                <div class="error">{{errors.spent_time.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="actual_end_date" id="actual_end_date" value="{{task_request.actual_end_date}}">
+                                            {% if errors.actual_end_date.0%}
+                                                <div class="error">{{errors.actual_end_date.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td><input type="text" class="form-control task-add" name="project" id="project" value="{{task_request.project}}">
+                                            {% if errors.project.0%}
+                                                <div class="error">{{errors.project.0}}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td style="padding: 0 5px !important">
+                                            <button type="submit" name="action" value="add_task" class="btn" id="submit" style="width: 30px; padding: 5px; background-color: #95e8af; display:none;">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </button>
+                                            <button type="button" class="btn" id="clear" style="width: 30px; padding: 5px; background-color: #e89595; display:none;">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/colResizable-1.6.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN JAVASCRIPTS -->
+    <script>
+    $(document).ready(function () {
+        var errors = '{{errors}}';
+        if (errors) {
+            $('tr#add_task_row')[0].style.display = "contents";
+            $('#submit')[0].style.display = "initial";
+            $('#clear')[0].style.display = "initial";
+        }
+        function layout_condensed_toggle() {
+            if ($('#main-menu').hasClass('mini')) {
+                $('body').removeClass('grey');
+                $('body').removeClass('condense-menu');
+                $('#main-menu').removeClass('mini');
+                $('.page-content').removeClass('condensed');
+                $('.scrollup').removeClass('to-edge');
+                $('.header-seperation').show();
+                $('.header-seperation').css('height', '61px');
+                $('.footer-widget').show();
+            } else {
+                $('body').addClass('grey');
+                $('#main-menu').addClass('mini');
+                $('.page-content').addClass('condensed');
+                $('.scrollup').addClass('to-edge');
+                $('.header-seperation').hide();
+                $('.footer-widget').hide();
+                $('.main-menu-wrapper').scrollbar('destroy');
+            }
+        }
+
+        layout_condensed_toggle();
+
+        $('#service_table').colResizable(
+            {
+                liveDrag:       true,
+                draggingClass:  'dragging',
+                resizeMode:     'overflow',
+            }
+        );
+
+        $('#add_task').click(function () {
+            $('tr#add_task_row')[0].style.display = "contents";
+            $('#submit')[0].style.display = "initial";
+            $('#clear')[0].style.display = "initial";
+        })
+
+        $('#clear').click(function () {
+            $('#subject').val("");
+            $('#start_date').val("");
+            $('#due_date').val("");
+            $('#done').val("");
+            $('#status').val("");
+            $('#assignee').val("");
+            $('#department').val("");
+            $('#tracker').val("");
+            $('#complexity').val("");
+            $('#estimated_time').val("");
+            $('#spent_time').val("");
+            $('#actual_end_date').val("");
+            $('#project').val("");
+        })
+
+    });
+    </script>
+    <!-- END JAVASCRIPTS -->
+    <!-- END CONTAINER -->
+</body>
+</html>

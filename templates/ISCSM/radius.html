@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <!--link href="/static/ISCSM/assets/css/themes/elegant/responsive.css" rel="stylesheet" type="text/css"/>
+    <!- END CSS TEMPLATE -->
+    <style>
+    .tag {
+        padding: 10px 0 10px 30px;
+        box-shadow: 4px 4px 5px #aaaaaa;
+    }
+    .tag:hover {
+        background-color: #dbdbdb;
+    }
+    .row {
+        margin-top: 7px;
+        margin-bottom: 7px;
+    }
+    .title1 {
+        font-size: 25px;
+        font-weight: 600;
+    }
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+            <div class="clearfix"></div>
+            <div class="content">
+                <div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+                    <h3 class="title">Radius</h3>
+                </div>
+                <div class="grid simple horizontal green">
+                    <div class="grid-body">
+                        <div class="title1">Ho Chi Minh</div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=42"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 42</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=43"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 43</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=44"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 44</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=45"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 45</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=46"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 46</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=47"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 47</div></a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=48"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 48</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM1&index=49"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 49</div></a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HCM2&index=140"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HCM 140</div></a></div>
+                        </div>
+                        <br>
+                        <div class="title1">Ha Noi</div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=191"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 191</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=192"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 192</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=193"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 193</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=194"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 194</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=196"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 196</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=197"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 197</div></a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=198"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 198</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=HNI&index=199"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;HNI 199</div></a></div>
+                        </div>
+                        <br>
+                        <div class="title1">CAM</div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=CAM1&index=82"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;CAM 82</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=CAM1&index=86"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;CAM 86</div></a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=CAM2&index=116"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;CAM 116</div></a></div>
+                            <div class="col-sm-2"><a href="/monitor_radius?zone=CAM2&index=117"><div class="tag"><i class="glyphicon glyphicon-hdd"></i>&nbsp;CAM 117</div></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN JAVASCRIPTS -->
+    <!-- END JAVASCRIPTS -->
+    <!-- END CONTAINER -->
+</body>
+</html>

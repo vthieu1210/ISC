@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<form method="POST" >
+{% csrf_token %}
+  First name:<br>
+  <input type="text" name="firstname" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+<h1>{{name}}</h1>
+
+
+
+
+<FORM action="" method="POST" enctype="multipart/form-data" > {% csrf_token %}
+File to upload: 
+    <input type="file" name="csv_file" />
+    <input type="submit" value="Upload" />
+ </FORM>
+
+
+<script>
+function getdata(){
+ href = '';
+ $.ajax({
+  url: href,
+  success: function(data){
+   $('#get-data').html(data); //get-data: là div chứa dữ lieu get về
+  }
+ })
+}
+
+var t = setTimeout(function() {
+           getdata();
+          }, 5000);
+</script>
+
+<div id="get-data">{{testajax}}
+{{testajax.RAM}}
+{{testajax.CPU}} </div>
+</body>
+
+
+
+
+</html>

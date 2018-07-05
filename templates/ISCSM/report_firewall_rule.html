@@ -1,0 +1,449 @@
+{% load bootstrap_pagination %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/themes/elegant/responsive.css" rel="stylesheet" type="text/css"/>
+    <!-- END CSS TEMPLATE -->
+    <style>
+    .input-group .form-control {
+        z-index: 0;
+        float: none;
+    }
+    .kv-fileinput-caption {
+        border-color: #428bca;
+    }
+    .table-bordered td {
+        vertical-align: middle !important;
+        border: 1px solid #8b91a0 !important;
+    }
+    .table-bordered th {
+        border: 1px solid #8b91a0 !important;
+        background-color: #4e535d;
+        text-align: center;
+        vertical-align: middle !important;
+        color: #ffffff;
+    }
+    .sub_table tr:first-child td {
+        border-top: 0 !important;
+    }
+    .sub_table tr td {
+        border-bottom:  0 !important;
+        border-left:    0 !important;
+        border-right:   0 !important;
+    }
+    .grid {
+        margin-bottom: 0;
+    }
+    .modal-body {
+        width: 900px;
+        padding: 5px;
+    }
+    .modal-content {
+        border: 0;
+        width: 900px;
+    }
+    .modal-dialog {
+        width: 900px;
+    }
+    input[type=file] {
+        display: none;
+    }
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+            <div class="clearfix"></div>
+            <div class="content">
+                <div class="page-title">
+                    <a href="javascript:history.back()" class="active">
+                        <i class="icon-custom-left"></i>
+                    </a>
+                    <a href="{% url 'ISCSM:report_firewall_rule' %}" class="active">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </a>
+                    <h3 class="title">Firewall</h3>
+                </div>
+                <div class="grid simple horizontal green">
+                    <div class="grid-body">
+                        <form method="get" id="main_form">
+                            <div class="pull-left">
+                                <div class="input-group" style="width: 100px;">
+                                    <input type="text" name="row" class="form-control" placeholder="Row" value="{{row}}">
+                                    <span id="submit" class="input-group-addon primary" style="cursor: pointer;">OK</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn" id="import_rule_button" style="width: 35px;">
+                                    <i class="glyphicon glyphicon-import"></i>
+                                </button>
+                                <button type="button" class="btn" style="width: 35px;" data-toggle="modal" data-target="#search_modal">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                                <div class="modal fade" id="search_modal" role="dialog">
+                                    <div class="modal-dialog" style="width: 700px">
+                                        <div class="modal-content" style="width: 700px">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h3 class="modal-title">Search</h3>
+                                            </div>
+                                            <div class="modal-body" style="width: 700px">
+                                                <div class="container-fluid">
+                                                    <input name="action" type="text" value="search" hidden>
+                                                    <div class="row" style="padding: 10px 30px;">
+                                                        <div class="col-md-4" style="padding: 0;">
+                                                            <div class="form-inline">
+                                                                <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Src IP</div>
+                                                                <input type="text" name="src_ip" class="form-control" value="{%if search.src_ip%}{{search.src_ip}}{%endif%}" style="width: 140px; border-color: #428bca;"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4" style="padding: 0; margin-left: 20px">
+                                                            <div class="form-inline">
+                                                                <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Dest IP</div>
+                                                                <input type="text" name="dest_ip" class="form-control" value="{%if search.dest_ip%}{{search.dest_ip}}{%endif%}" style="width: 130px; border-color: #428bca;"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3" style="padding: 0; margin-left: 20px">
+                                                            <div class="form-inline">
+                                                                <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Port</div>
+                                                                <input type="text" name="port" class="form-control" value="{{search.port}}" style="width: 80px; border-color: #428bca;"></input>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="padding: 10px 30px;">
+                                                        <div class="col-md-8" style="padding: 0;">
+                                                            <div class="form-inline">
+                                                                <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Date Created</div>
+                                                                <input type="text" name="is_datecreate" id="is_datecreate" class="form-control" value="{{search.is_datecreate}}" style="width: 100px; border-color: #428bca;"></input>
+                                                                <input type="text" name="between_datecreate_from" id="between_datecreate_from" class="form-control" value="{{search.between_datecreate_from}}" style="width: 100px; border-color: #428bca; display: none"></input>
+                                                                <div id="tidle" style="font-weight: 600;display: none">〜</div>
+                                                                <input type="text" name="between_datecreate_to" id="between_datecreate_to" class="form-control" value="{{search.between_datecreate_to}}" style="width: 100px; border-color: #428bca; display: none"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2" style="padding: 0;">
+                                                            <select class="form-control" id="search_by_date_type" name="search_by_date_type">
+                                                                <option value="is">IS</option>
+                                                                <option value="between">BETWEEN</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br /><br /><br />
+                        <form id="import_rule" method="post" enctype="multipart/form-data" action="/report/handle_firewall_rule">
+                            {% csrf_token %}
+                            <input id="fileid" name="myfile" type="file" hidden>
+                            <button type="submit" hidden></button>
+                        </form>
+                        <table width="100%" class="table table-bordered" id='service_table'>
+                            <thead>
+                                <tr>
+                                    <th>Source IP</th>
+                                    <th>Destination IP</th>
+                                    <th>Port</th>
+                                    <th>Description</th>
+                                    <th>Date Created</th>
+                                    <th>Utility</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rule in firewall_rule %}
+                                <tr>
+                                    <td width="10%" style="padding: 0 10px !important">{{rule.src_ip}}</td>
+                                    <td width="10%" style="padding: 0 !important">
+                                        <table class="table sub_table" style="margin: 0">
+                                            <tbody>
+                                                {% for dest_ip in rule.dest_ip %}
+                                                {% if dest_ip%}
+                                                <tr><td>{{dest_ip}}</td></tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="3%" style="padding: 0 !important">
+                                        <table class="table sub_table" style="margin: 0">
+                                            <tbody>
+                                                {% for port in rule.port %}
+                                                {% if port %}
+                                                <tr><td>{{port}}</td></tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="padding: 0 10px !important">{{rule.description}}</td>
+                                    <td width="10%" style="padding: 0 10px !important">{{rule.datecreate|date:"Y-m-d"}}</td>
+                                    <td width="8%" style="padding: 0 10px !important">
+                                        <form id="del_rule_{{rule.id}}" method="post" action="/report/handle_firewall_rule">
+                                            <button type="button" class="btn" style="width: 30px; padding: 5px;" data-toggle="modal" data-target="#edit_{{rule.id}}">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </button>
+                                            <button id="del_rule_{{rule.id}}_button" type="submit" class="btn" style="width: 30px; padding: 5px;">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                            {% csrf_token %}
+                                            <input name="action" value="del_rule" type="hidden">
+                                            <input name="id" value="{{rule.id}}" type="hidden">
+                                        </form>
+                                        <div class="modal fade" id="edit_{{rule.id}}" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form method="post" action="/report/handle_firewall_rule">
+                                                    {% csrf_token %}
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h3 class="modal-title">Note</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <input name="action" value="edit_rule" type="hidden">
+                                                            <input name="id" value="{{rule.id}}" type="hidden">
+                                                            <div class="row" style="padding: 10px;">
+                                                                <div class="col-md-3" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Src IP</div>
+                                                                        <input type="text" name="src_ip" class="form-control" value="{{rule.src_ip}}" style="width: 130px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Dest IP</div>
+                                                                        <input type="text" name="dest_ip" class="form-control" value="{{rule.dest_ip_raw}}" style="width: 130px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2" style="padding: 0; margin-left: 20px">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Port</div>
+                                                                        <input type="text" name="port" class="form-control" value="{{rule.port_raw}}" style="width: 80px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3" style="padding: 0; margin-left: 20px">
+                                                                    <div class="form-inline">
+                                                                        <div style="vertical-align: top; font-weight: 600" class="btn btn-primary">Date Created</div>
+                                                                        <input type="text" name="datecreate" class="form-control" value="{{rule.datecreate|date:"Y-m-d"}}" style="width: 100px; border-color: #428bca;"></input>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="padding: 10px;">
+                                                                <div class="col-md-12" style="padding: 0;">
+                                                                    <div class="form-inline">
+                                                                        <div class="btn btn-primary" style="vertical-align: top; margin-top: 1px;">Description</div>
+                                                                        <textarea rows="5" name="description" class="form-control" style="width: 745px; border-color: #428bca;">{{rule.description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" type="submit">OK</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    {% bootstrap_paginate firewall_rule range=5%}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/colResizable-1.6.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/fileinput.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN Export Table-->
+
+    <!-- END Export Table- -->
+    <script>
+    $(document).ready(function () {
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function layout_condensed_toggle() {
+            if ($('#main-menu').hasClass('mini')) {
+                $('body').removeClass('grey');
+                $('body').removeClass('condense-menu');
+                $('#main-menu').removeClass('mini');
+                $('.page-content').removeClass('condensed');
+                $('.scrollup').removeClass('to-edge');
+                $('.header-seperation').show();
+                $('.header-seperation').css('height', '61px');
+                $('.footer-widget').show();
+            } else {
+                $('body').addClass('grey');
+                $('#main-menu').addClass('mini');
+                $('.page-content').addClass('condensed');
+                $('.scrollup').addClass('to-edge');
+                $('.header-seperation').hide();
+                $('.footer-widget').hide();
+                $('.main-menu-wrapper').scrollbar('destroy');
+            }
+        }
+        layout_condensed_toggle();
+
+        function set_search_by_date_type() {
+            var type = getParameterByName('search_by_date_type')
+            if (type)
+                $('#search_by_date_type').val(type);
+            if (type == "is") {
+                $('#tidle')[0].style.display = "none";
+                $('#between_datecreate_from')[0].style.display = "none";
+                $('#between_datecreate_to')[0].style.display = "none";
+                $('#is_datecreate')[0].style.display = "initial";
+            }
+            if (type == "between") {
+                $('#between_datecreate_from')[0].style.display = "initial";
+                $('#between_datecreate_to')[0].style.display = "initial";
+                $('#tidle')[0].style.display = "initial";
+                $('#is_datecreate')[0].style.display = "none";
+            }
+        }
+        set_search_by_date_type();
+
+        $('#service_table').colResizable(
+            {
+                liveDrag:       true,
+                draggingClass:  'dragging',
+                resizeMode:     'overflow',
+            }
+        );
+        $('#layout-condensed-toggle').off('click');
+        $('#layout-condensed-toggle').click(function () {
+            $('#service_table').colResizable({disable:true});
+            if ($('#main-menu').attr('data-inner-menu') == '1') {
+                console.log("Menu is already condensed");
+            } else {
+                if ($('#main-menu').hasClass('mini')) {
+                    $('body').removeClass('grey');
+                    $('body').removeClass('condense-menu');
+                    $('#main-menu').removeClass('mini');
+                    $('.page-content').removeClass('condensed');
+                    $('.scrollup').removeClass('to-edge');
+                    $('.header-seperation').show();
+                    $('.header-seperation').css('height', '61px');
+                    $('.footer-widget').show();
+                } else {
+                    $('body').addClass('grey');
+                    $('#main-menu').addClass('mini');
+                    $('.page-content').addClass('condensed');
+                    $('.scrollup').addClass('to-edge');
+                    $('.header-seperation').hide();
+                    $('.footer-widget').hide();
+                    $('.main-menu-wrapper').scrollbar('destroy');
+                }
+            }
+            $('#service_table').colResizable(
+                {
+                    liveDrag:       true,
+                    draggingClass:  'dragging',
+                    resizeMode:     'overflow',
+                }
+            );
+        });
+
+        $('#submit').click(function () {
+            $('#main_form').submit();
+        });
+
+        $('#import_rule_button').click(function () {
+            $('#fileid').click();
+        })
+        $('#fileid').change(function () {
+            $('#import_rule').submit();
+        })
+        $('#search_by_date_type').change(function () {
+            var type = $('#search_by_date_type option:selected').text();
+            if (type == "IS") {
+                $('#tidle')[0].style.display = "none";
+                $('#between_datecreate_from')[0].style.display = "none";
+                $('#between_datecreate_to')[0].style.display = "none";
+                $('#is_datecreate')[0].style.display = "initial";
+            }
+            if (type == "BETWEEN") {
+                $('#between_datecreate_from')[0].style.display = "initial";
+                $('#between_datecreate_to')[0].style.display = "initial";
+                $('#tidle')[0].style.display = "initial";
+                $('#is_datecreate')[0].style.display = "none";
+            }
+        })
+
+    });
+    </script>
+    <!-- END JAVASCRIPTS -->
+    <!-- END CONTAINER -->
+</body>
+</html>

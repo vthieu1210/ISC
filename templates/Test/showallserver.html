@@ -1,0 +1,43 @@
+<html>
+ <head>
+ <!-- <link rel="stylesheet" type="text/css" href="/static/base.css" />-->
+ </head>
+ <title>Abc</title>
+ <!-- Comment: Các thông tin khai báo, các thông tin ẩn -->
+ </head>
+ <body>
+
+<!-- Load thong tin 1 server -->
+
+<!--
+<h1>{{lstServer.ServerName}}<h1>
+<h1>{{lstServer.RAM}}<h1>
+ {%for lstServices in lstServer.Service.items%}
+ 	{%for service in lstServices%}
+ 		<h1>{{service.ServiceName}}<h1>
+ 	{%endfor%}
+ {%endfor%}
+-->
+<!-- Load thong tin server  trong 1 zone-->
+<h1><a href="/admin/logout/">Logout</a><h1>
+
+
+
+{%for lst in lstServer%}
+<h1><a href="/showall/{{ lst.id }}/">{{lst.ServerName}}</a><h1>
+
+
+ {%for lstServices in lst.Service.items%}
+ 	{%for service in lstServices%}
+ 		<h1>{{service.ServiceName}}<h1>
+ 	{%endfor%}
+ {%endfor%}
+{%endfor%}
+
+
+<h1>{{test}}<h1>
+
+ </body>
+</html>
+
+

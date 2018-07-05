@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form method="POST" >
+{% csrf_token %}
+  First name:<br>
+  <input type="text" name="firstname" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+<h1>{{name}}</h1>
+
+
+
+
+<FORM METHOD=POST ENCTYPE="multipart/form-data" ACTION="../cgi-bin/mycgi.pl"> {% csrf_token %}
+File to upload: 
+<INPUT TYPE=FILE NAME="upfile"><BR> 
+<INPUT TYPE=SUBMIT VALUE="Submit">
+ </FORM>
+
+</body>
+</html>

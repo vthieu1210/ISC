@@ -1,0 +1,82 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar" id="main-menu">
+    <!-- BEGIN MINI-PROFILE -->
+    <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
+        <div class="user-info-wrapper">
+            <div class="profile-wrapper"> <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="69" height="69" /> </div>
+            <div class="user-info">
+                <div class="greeting">Manager</div>
+                <div class="username">ISC <span class="semi-bold">Server</span></div>
+                <div class="status">Status<a><div class="status-icon green"></div>Online</a></div>
+            </div>
+        </div>
+        <!-- END MINI-PROFILE -->
+        <!-- BEGIN SIDEBAR MENU -->
+        <p class="menu-title">BROWSE<span class="pull-right"><a><i class="fa fa-refresh"></i></a></span></p>
+        <ul>
+            <li class="start"> <a href="index.html"> <i class="icon-custom-home"></i> <span class="title">Dashboard</span> <span class="selected"></span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+                </ul>
+            </li>
+            <li class=""> <a href="javascript:;"> <i class="icon-custom-thumb"></i> <span class="title">Server Zone</span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+                    {%for zone in listzone%}
+                        <FORM action="/showall/" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+                            <button type="submit" name="btn" value="{{zone.id}}" class="hidebtn">Zone {{zone.ZoneName}}</button>
+                        </FORM>
+                    {%endfor%}
+                </ul>
+            </li>
+            <li class=""> <a href="javascript:;"> <i class="fa fa-book"></i> <span class="title">Report</span> <span class="arrow "></span> </a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="{% url 'ISCSM:document' %}">Document</a></li>
+                    <li class="active"><a href="/report/">Report Server</a> </li>
+                    <li class="active"><a href="{% url 'ISCSM:report_web_service' %}">Web Service</a> </li>
+                    <li class="active"><a href="{% url 'ISCSM:report_win_service' %}" >Win Service</a> </li>
+                    <li class="active"><a href="{% url 'ISCSM:report_firewall_rule' %}" >Firewall</a> </li>
+                </ul>
+            </li>
+            <li class=""> <a href="javascript:;"> <i class="icon-custom-chart"></i> <span class="title">Network</span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/network">Check</a> </li>
+                </ul>
+            </li>
+            <li class="start"> <a href="index.html"> <i class="icon-custom-form"></i> <span class="title">Radius</span> <span class="selected"></span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li class="active"> <a href="{% url 'ISCSM:radius' %}"> Monitor</a></li>
+                </ul>
+            </li>
+            <li class="start"> <a href="index.html"> <i class="fa fa-sitemap"></i> <span class="title">Local Monitor</span> <span class="selected"></span> <span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"> <a target="_blank" href="http://172.30.27.242/monitor"> OneNet </a></li>
+                </ul>
+            </li>
+            <li class="start"> <a href="index.html"> <i class="fa fa-th"></i> <span class="title">Kibana</span> <span class="selected"></span> <span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"> <a target="_blank" href="https://118.70.194.4/"> Kibana </a></li>
+                </ul>
+            </li>
+            <li class="start"> <a href="index.html"> <i class="fa fa-retweet"></i> <span class="title">Reverse Proxy</span> <span class="selected"></span> <span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"> <a target="_blank" href="http://172.20.18.32/status"> Private </a></li>
+                    <li class="active"> <a target="_blank" href="http://118.69.59.232/status"> Public </a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>
+<a href="#" class="scrollup">Scroll</a>
+<div class="footer-widget">
+    <div class="progress transparent progress-small no-radius no-margin">
+        <div data-percentage="100%" class="progress-bar progress-bar-success animate-progress-bar" ></div>
+    </div>
+    <div class="pull-right">
+        <div class="details-status">
+            <span data-animation-duration="560" data-value="100" class="animate-number"></span>%
+        </div>
+        <a><i class="fa fa-power-off"></i></a>
+    </div>
+</div>
+<!-- END SIDEBAR -->

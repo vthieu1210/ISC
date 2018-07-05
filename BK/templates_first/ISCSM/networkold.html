@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta charset="utf-8" />
+<title>ISC Server - Network</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+    
+<!-- BEGIN PLUGIN CSS -->
+<link href="/static/ISCSM/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+<!-- END PLUGIN CSS -->
+<!-- BEGIN CORE CSS FRAMEWORK -->
+<link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+<!-- END CORE CSS FRAMEWORK -->
+<!-- BEGIN CSS TEMPLATE -->
+<link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+<!-- END CSS TEMPLATE -->
+<style>
+body {font-family: "Lato", sans-serif;}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 100;
+    overflow: hidden;
+    border:3px solid #0aa699;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+
+    display: inline-block;
+    color: blue;
+    text-align: center;
+    padding: 14px 122px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class 
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}*/
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close1 {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<style>
+textarea
+{
+  width:100%;
+}
+.textwrapper
+{
+  color: blue;
+  border:3px solid #0aa699;
+  margin:5px 0;
+  padding:3px;
+
+}
+</style>
+<style>
+.hidebtn
+{
+  text-align: left !important;
+  width: 100%;
+  height: 30px;
+  color: white;
+  background-color: #22262e;
+  border:0 none;
+  padding-left: 52px;
+ 
+}
+
+.hidebtn:hover
+{
+    background: #1b1e24 !important ;
+}
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse "> 
+  <!-- BEGIN TOP NAVIGATION BAR -->
+  <div class="navbar-inner">
+	<div class="header-seperation"> 
+		<ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">	
+		 <li class="dropdown"> <a id="main-menu-toggle" href="#main-menu"  class="" > <div class="iconset top-menu-toggle-white"></div> </a> </li>		 
+		</ul>
+      <!-- BEGIN LOGO -->	
+      <a href="/default"><img src="/static/ISCSM/assets/img/logo.png" class="" alt=""  data-src="/static/ISCSM/assets/img/logo.png" data-src-retina="/static/ISCSM/assets/img/logo2x.png" width="155" height="58"/></a>
+      <!-- END LOGO --> 
+      <ul class="nav pull-right notifcation-center">	
+        <li class="dropdown" id="header_task_bar"> <a href="/default" class="dropdown-toggle active" data-toggle=""> <div class="iconset top-home"></div> </a> </li>
+        
+		<li class="dropdown" id="portrait-chat-toggler" style="display:none"> <a href="#sidr" class="chat-menu-toggle"> <div class="iconset top-chat-white "></div> </a> </li>        
+      </ul>
+      </div>
+      <!-- END RESPONSIVE MENU TOGGLER --> 
+      <div class="header-quick-nav" > 
+      <!-- BEGIN TOP NAVIGATION MENU -->
+	  <div class="pull-left"> 
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="#" class="" id="layout-condensed-toggle" >
+            <div class="iconset top-menu-toggle-dark"></div>
+            </a> </li>
+        </ul>
+        
+	  </div>
+	 <!-- END TOP NAVIGATION MENU -->
+	 <!-- BEGIN CHAT TOGGLER -->
+      <div class="pull-right">
+        <div class="chat-toggler"> <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom"  data-content='' data-toggle="dropdown" >
+          <div class="user-details">
+            <div class="username"> <span class="badge badge-important"></span> Server <span class="bold">Manager</span> </div>
+          </div>
+          <div class="iconset top-down-arrow"></div>
+
+              <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+              <li><a href="/admin/password_change">Change Password</a> </li>
+              <li class="divider"></li>
+              <li><a href="/admin/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+              </ul>
+                                  </a>
+       
+          <div class="profile-pic"> 
+            <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="35" height="35" />
+          </div>  
+        </div>
+        
+      </div>
+	   <!-- END CHAT TOGGLER -->
+      </div> 
+      <!-- END TOP NAVIGATION MENU --> 
+   
+  </div>
+  <!-- END TOP NAVIGATION BAR --> 
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar" id="main-menu"> 
+  <!-- BEGIN MINI-PROFILE -->
+   <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper"> 
+   <div class="user-info-wrapper">
+        <div class="profile-wrapper"> <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="69" height="69" /> </div>
+        <div class="user-info">
+          <div class="greeting">Manager</div>
+          <div class="username">ISC <span class="semi-bold">Server</span></div>
+          <div class="status">Status<a>
+            <div class="status-icon green"></div>
+            Online</a></div>
+        </div>
+      </div>
+  <!-- END MINI-PROFILE -->
+   
+   <!-- BEGIN SIDEBAR MENU -->	
+	<p class="menu-title">BROWSE <span class="pull-right"><a><i class="fa fa-refresh"></i></a></span></p>
+    <ul>	
+      	
+      	<li class="start"> <a href="index.html"> <i class="icon-custom-home"></i> <span class="title">Dashboard</span> <span class="selected"></span> <span class="arrow"></span> </a> 
+          <ul class="sub-menu">
+              
+              <li class="active"> </li>
+            </ul>
+        </li>
+	
+
+
+		<li class=""> <a href="javascript:;"> <i class="icon-custom-thumb"></i> <span class="title">Server Zone</span> <span class="arrow"></span> </a>
+          <ul class="sub-menu">           
+           {%for listzone in lstZone%}           
+          <FORM action="/showall/" method="POST" enctype="multipart/form-data" >{% csrf_token %}   
+            <button type="submit" name="btn" value="{{listzone.id}}" class="hidebtn">Zone {{listzone.ZoneName}}</button>
+          </FORM>
+          {%endfor%}
+          </ul>
+        </li>     
+
+
+        <li class="active open"> <a href="javascript:;"> <i class="icon-custom-chart"></i> <span class="title">Network</span> <span class="arrow open"></span> </a>
+          <ul class="sub-menu">
+            <li class="active"><a href="/network">Check</a> </li>
+          </ul>
+        </li>
+       
+        <li class="start"> <a href="index.html"> <i class="icon-custom-form"></i> <span class="title">Radius</span> <span class="selected"></span> <span class="arrow"></span> </a> 
+          <ul class="sub-menu">
+              
+              <li class="active"> <a target="_blank" href="http://210.245.31.173:8080/telnet/radius"> Radius v2 <span class=" label label-info pull-right m-r-30">NEW</span></a></li>
+            </ul>
+        </li>
+
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-sitemap"></i> <span class="title">Local Monitor</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="http://172.30.27.242/monitor"> OneNet </a></li>
+            </ul>
+        </li>
+
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-th"></i> <span class="title">Kibana</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="https://118.70.194.4/"> Kibana </a></li>
+            </ul>
+        </li>
+        
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-retweet"></i> <span class="title">Reverse Proxy</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="http://172.20.18.32/status"> Private </a></li>
+              <li class="active"> <a target="_blank" href="http://118.69.59.232/status"> Public </a></li>
+            </ul>
+        </li>
+        
+          
+    </ul>
+    
+		
+	<div class="clearfix"></div>
+    <!-- END SIDEBAR MENU --> 
+  </div>
+  </div>
+
+  <a href="#" class="scrollup">Scroll</a>
+   <div class="footer-widget">		
+	<div class="progress transparent progress-small no-radius no-margin">
+		<div data-percentage="100%" class="progress-bar progress-bar-success animate-progress-bar" ></div>		
+	</div>
+	<div class="pull-right">
+		<div class="details-status">
+		<span data-animation-duration="560" data-value="100" class="animate-number"></span>%
+	</div>	
+	<a><i class="fa fa-power-off"></i></a></div>
+  </div>
+
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN PAGE CONTAINER-->
+  <div class="page-content"> 
+    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+    <div id="portlet-config" class="modal hide">
+      <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>Widget Settings</h3>
+      </div>
+      <div class="modal-body"> Widget settings form goes here </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="content">  
+		
+		<div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+			<h3>Network</h3>		
+		</div>
+		
+							<ul class="tab">
+							  <li><a href="javascript:;" class="tablinks" onclick="openCity(event, 'London')" >Ping</a></li>
+							  <li><a href="javascript:;" class="tablinks" onclick="openCity(event, 'Paris')">Tracert</a></li>
+							  <li><a href="javascript:;" class="tablinks" onclick="openCity(event, 'Tokyo')">Telnet</a></li>
+							</ul>
+
+
+							
+							<div id="London" class="tabcontent">
+							<form method="POST" >
+								{% csrf_token %}
+									<div class="row-fluid">
+									<h3><span class="semi-bold">Ping</span></h3>	
+									<br>							
+									<div class="input-group">
+									  <span class="input-group-addon primary">				  
+									  <span class="arrow"></span>
+										<i class="fa fa-align-justify"></i>
+									  </span>
+									  <input type="text" class="form-control" name="ipping" placeholder="IP Address">
+									</div>
+									<br>
+									<span style="padding-left:800px;"></span>							
+									<button type="submit" name="btn" value="Ping" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>&nbsp;Submit</button>								
+							</div>				
+							</form> 
+							</div>
+
+								
+							<div id="Paris" class="tabcontent">	
+							  <form method="POST" >	
+							  		{% csrf_token %}		  
+
+							  <div class="row-fluid">
+									<h3><span class="semi-bold">Tracert</span></h3>	
+									<br>									   
+									<div class="input-group">
+									  <span class="input-group-addon primary">				  
+									  <span class="arrow"></span>
+										<i class="fa fa-align-justify"></i>
+									  </span>
+									  <input type="text" name="iptrace" class="form-control" placeholder="IP Address">
+									</div>								
+									<br>
+									<span style="padding-left:800px;"></span>								
+									<button type="submit" name="btn" value="Tracert" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>&nbsp;Submit</button>								
+								  </div>
+								</form> 								
+							</div>					
+							
+							
+							<div id="Tokyo" class="tabcontent">
+								 <form method="POST" >	
+							  		{% csrf_token %}
+
+							 <div class="row-fluid">
+									<h3><span class="semi-bold">Telnet</span></h3>	
+									<br>									   
+									<div class="input-group">
+									  <span class="input-group-addon primary">				  
+									  <span class="arrow"></span>
+										<i class="fa fa-align-justify"></i>
+									  </span>
+									  <input type="text" name="iptelnet" class="form-control" placeholder="IP Address">
+									</div>
+									<br>
+									<div class="input-group transparent">
+									  <span class="input-group-addon ">
+										<i class="fa fa-instagram"></i>
+									  </span>
+									  <input type="text" name="porttelnet" class="form-control" placeholder="Port">
+									</div>									
+									<br>
+									<span style="padding-left:800px;"></span>									
+									<button type="submit" name="btn" value="Telnet" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>&nbsp;Submit</button>				
+								  </div>
+								  </form>		
+							</div>
+								
+						<textarea class="textwrapper" rows="22" readonly="readonly">								
+							{{result}}
+						</textarea>
+				
+
+		
+    </div>
+  </div>
+<!-- BEGIN CHAT --> 
+<div class="chat-window-wrapper">
+	<div id="main-chat-wrapper" class="inner-content">
+        <div class="chat-window-wrapper scroller scrollbar-dynamic" id="chat-users" >
+            
+            <div class="side-widget">
+               <div class="side-widget-title">Message</div>
+                <div class="side-widget-content">
+                 <div id="groups-list">
+                    <ul class="groups" >
+                        <li><a><div class="status-icon green"></div>Select Ping, Tracert or Telnet </a></li>
+                        <li><a><div class="status-icon black"></div>to check Network</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END CHAT --> 
+ </div>
+<!-- END CONTAINER --> 
+
+<!-- END CONTAINER -->
+<!-- BEGIN CORE JS FRAMEWORK-->
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script> 
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+<!-- END CORE JS FRAMEWORK --> 
+<!-- BEGIN PAGE LEVEL JS --> 
+<script src="/static/ISCSM/assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
+<script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS --> 	
+
+<!-- BEGIN CORE TEMPLATE JS --> 
+<script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/js/chat.js" type="text/javascript"></script> 
+<!-- END CORE TEMPLATE JS --> 
+</body>
+</html>

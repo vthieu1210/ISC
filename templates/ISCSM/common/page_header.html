@@ -1,0 +1,52 @@
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse ">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="navbar-inner">
+        <div class="header-seperation">
+            <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
+                <li class="dropdown"> <a id="main-menu-toggle" href="#main-menu"  class="" > <div class="iconset top-menu-toggle-white"></div> </a> </li>
+            </ul>
+            <!-- BEGIN LOGO -->
+            <a href="{% url 'ISCSM:index' %}"><img src="/static/ISCSM/assets/img/logo.png" class="" alt=""  data-src="/static/ISCSM/assets/img/logo.png" data-src-retina="/static/ISCSM/assets/img/logo2x.png" width="155" height="58"/></a>
+            <!-- END LOGO -->
+            <ul class="nav pull-right notifcation-center">
+                <li class="dropdown" id="header_task_bar"> <a href="{% url 'ISCSM:index' %}" class="dropdown-toggle active" data-toggle=""> <div class="iconset top-home"></div> </a> </li>
+                <li class="dropdown" id="portrait-chat-toggler" style="display:none"> <a href="#sidr" class="chat-menu-toggle"> <div class="iconset top-chat-white "></div> </a> </li>
+            </ul>
+        </div>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <div class="header-quick-nav" >
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="pull-left">
+                <ul class="nav quick-section">
+                    <li class="quicklinks"> <a href="#" class="" id="layout-condensed-toggle" >
+                        <div class="iconset top-menu-toggle-dark"></div>
+                    </a> </li>
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+            <!-- BEGIN CHAT TOGGLER -->
+            <div class="pull-right">
+                <div class="chat-toggler">
+                    <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom"  data-content='' data-toggle="dropdown" >
+                        <div class="user-details">
+                            <div class="username"> <span class="badge badge-important"></span> Welcome <b>{{ request.user.username }}</b> </div>
+                        </div>
+                        <div class="iconset top-down-arrow"></div>
+                        <ul class="dropdown-menu  pull-right user-panel" role="menu" aria-labelledby="user-options">
+                            <li><a href="/admin/password_change">Change Password</a> </li>
+                            <li><a href="{% url 'ISCSM:logout' %}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+                        </ul>
+                    </a>
+                    <div class="profile-pic">
+                        <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="35" height="35" />
+                    </div>
+                </div>
+            </div>
+            <!-- END CHAT TOGGLER -->
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->

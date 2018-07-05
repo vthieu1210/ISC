@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <!--link href="/static/ISCSM/assets/css/themes/elegant/responsive.css" rel="stylesheet" type="text/css"/>
+    <!- END CSS TEMPLATE -->
+    <style>
+    textarea {
+        background-color: #151616 !important;
+        color: #0a8c00 !important;
+    }
+    .form-control[readonly] {
+        cursor: text;
+    }
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+            <div class="clearfix"></div>
+            <div class="content">
+                <div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+                    <h3 class="title">Radius Monitor</h3>
+                </div>
+                <div class="grid simple horizontal green">
+                    <div class="grid-body">
+                        <div class="pull-right">
+                            <button type="button" class="btn" id="stop" style="width: 35px;">
+                                <div style="color:red"><i class="glyphicon glyphicon-stop"></i></div>
+                            </button>
+                            <button type="button" class="btn" id="play" style="width: 35px;">
+                                <div style="color:green"><i class="glyphicon glyphicon-play"></i></div>
+                            </button>
+                            <button type="button" class="btn" id="show_config" style="width: 35px;">
+                                <div><i class="glyphicon glyphicon-wrench"></i></div>
+                            </button>
+                            <button type="button" class="btn" id="clear" style="width: 35px;">
+                                <div><i class="glyphicon glyphicon-trash"></i></div>
+                            </button>
+                        </div>
+                        <br /><br /><br />
+                        <textarea id="result" class="form-control" style="height: -webkit-fill-available;" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="/static/ISCSM/assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN Export Table-->
+
+    <!-- END Export Table- -->
+    <script>
+    $(document).ready(function () {
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        var status = false;
+        var request;
+
+        $('#play').click(async function () {
+            status = true;
+            var timeout = 0;
+            var result = '';
+            while (status && timeout < 20000) {
+                var ACK_flag = false;
+                request = $.ajax({
+                    url:        '/monitor_radius',
+                    data:       {
+                        action:     'play',
+                        zone:       getParameterByName('zone'),
+                        index:      getParameterByName('index'),
+                    },
+                    dataType:   'text',
+                    success:    function (data) {
+                        result = $('#result').val();
+                        $('#result').val(result+data);
+                        $('#result').scrollTop($('#result')[0].scrollHeight);
+                        ACK_flag = true;
+                    }
+                });
+                await sleep(250);
+                while (!ACK_flag) {
+                    await sleep(250);
+                }
+                timeout += 500;
+            }
+            $.ajax({
+                url:        '/monitor_radius',
+                data:       {
+                    action:     'stop',
+                    zone:       getParameterByName('zone'),
+                    index:      getParameterByName('index'),
+                },
+                dataType:   'text',
+                success:    function () {
+                }
+            });
+        });
+        $('#stop').click(function () {
+            status = false;
+            $.ajax({
+                url:        '/monitor_radius',
+                data:       {
+                    action:     'stop',
+                    zone:       getParameterByName('zone'),
+                    index:      getParameterByName('index'),
+                },
+                dataType:   'text',
+                success:    function () {
+                }
+            });
+        });
+        $('#show_config').click(function () {
+            status = false;
+            $.ajax({
+                url:        '/monitor_radius',
+                data:       {
+                    action:     'show_config',
+                    zone:       getParameterByName('zone'),
+                    index:      getParameterByName('index'),
+                },
+                dataType:   'text',
+                success:    function (data) {
+                    $('#result').val(data);
+                }
+            });
+        });
+        $('#clear').click(function () {
+            $('#result').val('')
+        });
+        $(window).on('unload', function () {
+            if (status) {
+                $.ajax({
+                    url:        '/monitor_radius',
+                    data:       {
+                        action:     'stop',
+                        zone:       getParameterByName('zone'),
+                        index:      getParameterByName('index'),
+                    },
+
+                    dataType:   'text',
+                    async:      false,
+                    success:    function () {
+                    }
+                });
+            }
+        });
+
+    });
+    </script>
+    <!-- END JAVASCRIPTS -->
+    <!-- END CONTAINER -->
+</body>
+</html>

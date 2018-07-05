@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta charset="utf-8" />
+<title>ISC Server - Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<!-- BEGIN PLUGIN CSS -->
+<link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+<link href="/static/ISCSM/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+<!-- END PLUGIN CSS -->
+<!-- BEGIN CORE CSS FRAMEWORK -->
+<link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+<!-- END CORE CSS FRAMEWORK -->
+<!-- BEGIN CSS TEMPLATE -->
+<link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+<link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+<!-- END CSS TEMPLATE -->
+<style>
+  .same-buttom{
+    width: 100%;
+  }
+  .bolder-butom{
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 10px;
+    margin: 0 0 15px 0;
+    font-weight:600;
+  }
+
+</style>
+<style>
+.hidebtn
+{
+  text-align: left !important;
+  width: 100%;
+  height: 30px;
+  color: white;
+  background-color: #22262e;
+  border:0 none;
+  padding-left: 52px;
+ 
+}
+
+.hidebtn:hover
+{
+    background: #1b1e24 !important ;
+}
+.btn-hide{
+  color: #5e5e5e;
+  cursor: pointer;
+} 
+
+.btn-hide:hover
+{
+color: #d1dade;
+}
+</style>
+</head>
+<!-- BEGIN BODY -->
+<body class="">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse ">
+  <!-- BEGIN TOP NAVIGATION BAR -->
+  <div class="navbar-inner">
+    <div class="header-seperation">
+      <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
+        <li class="dropdown"> <a id="main-menu-toggle" href="#main-menu"  class="" >
+          <div class="iconset top-menu-toggle-white"></div>
+          </a> </li>
+      </ul>
+      <!-- BEGIN LOGO 
+      <a href="/default"><img src="/static/ISCSM/assets/img/logo.png" class="logo" alt=""  data-src="/static/ISCSM/assets/img/logo.png" data-src-retina="/static/ISCSM/assets/img/logo2x.png" width="155" height="58"/></a>
+      -->
+      <a href="/default"><img src="/static/ISCSM/assets/img/logo.png" class="" alt=""  data-src="/static/ISCSM/assets/img/logo.png" data-src-retina="/static/ISCSM/assets/img/logo2x.png" width="155" height="58"/></a>
+
+      <!-- END LOGO -->
+      <ul class="nav pull-right notifcation-center">
+        <li class="dropdown" id="header_task_bar"> <a href="/default" class="dropdown-toggle active" data-toggle="">
+          <div class="iconset top-home"></div>
+          </a> </li>
+        
+        <li class="dropdown" id="portrait-chat-toggler" style="display:none"> <a href="#sidr" class="chat-menu-toggle">
+          <div class="iconset top-chat-white "></div>
+          </a> </li>
+      </ul>
+    </div>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <div class="header-quick-nav" >
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="pull-left">
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="#" class="" id="layout-condensed-toggle" >
+            <div class="iconset top-menu-toggle-dark"></div>
+            </a> </li>
+        </ul>
+
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
+      <!-- BEGIN CHAT TOGGLER -->
+      <div class="pull-right">
+        <div class="chat-toggler"> <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom"  data-content='' data-toggle="dropdown" >
+          <div class="user-details">
+            <div class="username"> <span class="badge badge-important"></span> Server <span class="bold">Manager</span> </div>
+          </div>
+          <div class="iconset top-down-arrow"></div>
+
+              <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+              <li><a href="/admin/password_change">Change Password</a> </li>
+              <li class="divider"></li>
+              <li><a href="/admin/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+              </ul>
+                                  </a>
+       
+          <div class="profile-pic"> 
+            <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="35" height="35" />
+          </div>  
+        </div>
+        
+      </div>
+      <!-- END CHAT TOGGLER -->
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+  </div>
+  <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar" id="main-menu">
+    <!-- BEGIN MINI-PROFILE -->
+    <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
+      <div class="user-info-wrapper">
+        <div class="profile-wrapper"> <img src="/static/ISCSM/assets/img/others/glacier.jpg"  alt="" data-src="/static/ISCSM/assets/img/others/glacier.jpg" data-src-retina="/static/ISCSM/assets/img/others/glacier.jpg" width="69" height="69" /> </div>
+        <div class="user-info">
+          <div class="greeting">Manager</div>
+          <div class="username">ISC <span class="semi-bold">Server</span></div>
+          <div class="status">Status<a>
+            <div class="status-icon green"></div>
+            Online</a></div>
+        </div>
+      </div>
+      <!-- END MINI-PROFILE -->
+      <!-- BEGIN SIDEBAR MENU -->
+      <p class="menu-title">BROWSE <span class="pull-right "><a><i class="fa fa-refresh "></i></a></span></p>
+      <ul>
+
+        <li class="start"> <a href="index.html"> <i class="icon-custom-home"></i> <span class="title">Dashboard</span> <span class="selected"></span> <span class="arrow"></span> </a> 
+          <ul class="sub-menu">
+              
+              <li class="active"> </li>
+            </ul>
+        </li>
+        
+<!-- NhanHT9 -->
+        
+        <li class=""> <a href="javascript:;"> <i class="icon-custom-thumb"></i> <span class="title">Server Zone</span> <span class="arrow "></span> </a>
+          <ul class="sub-menu">
+          {%for lstreport in lstreport%}           
+          <FORM action="/showall/" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+            <button type="submit" name="btn" value="{{lstreport.ZoneName_id}}" class="hidebtn">Zone {{lstreport.ZoneName}}</button>
+          </FORM>
+          {%endfor%}
+          </ul>
+        </li>
+              
+
+         <li class="active open"> <a href="javascript:;"> <i class="fa fa-book"></i> <span class="title">Report</span> <span class="arrow open"></span> </a>
+          <ul class="sub-menu">
+            <li class="active"><a href="/report/">Report Server</a> </li>
+            <li class=""><a href="/reportfw/">Report Firewall</a> </li>
+          </ul>
+        </li>
+
+
+        <li class=""> <a href="javascript:;"> <i class="icon-custom-chart"></i> <span class="title">Network</span> <span class="arrow "></span> </a>
+          <ul class="sub-menu">
+            <li class="active"><a href="/network/">Check</a> </li>
+          </ul>
+        </li>
+            
+
+        <li class="start"> <a href="index.html"> <i class="icon-custom-form"></i> <span class="title">Radius</span> <span class="selected"></span> <span class="arrow"></span> </a> 
+          <ul class="sub-menu">
+              
+              <li class="active"> <a target="_blank" href="http://210.245.31.173:8080/telnet/radius"> Radius v2 <span class=" label label-info pull-right m-r-30">NEW</span></a></li>
+            </ul>
+        </li>
+
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-sitemap"></i> <span class="title">Local Monitor</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="http://172.30.27.242/monitor"> OneNet </a></li>
+            </ul>
+        </li>
+
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-th"></i> <span class="title">Kibana</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="https://118.70.194.4/"> Kibana </a></li>
+            </ul>
+        </li>
+        
+
+        <li class="start"> <a href="index.html"> <i class="fa fa-retweet"></i> <span class="title">Reverse Proxy</span> <span class="selected"></span> <span class="arrow"></span></a>
+          <ul class="sub-menu">
+              <li class="active"> <a target="_blank" href="http://172.20.18.32/status"> Private </a></li>
+              <li class="active"> <a target="_blank" href="http://118.69.59.232/status"> Public </a></li>
+            </ul>
+        </li>
+
+
+      </ul>
+      
+      
+      <div class="clearfix"></div>
+      <!-- END SIDEBAR MENU -->
+    </div>
+  </div>
+  <div class="footer-widget">
+    <div class="progress transparent progress-small no-radius no-margin">
+      <div data-percentage="100%" class="progress-bar progress-bar-success animate-progress-bar" ></div>
+    </div>
+    <div class="pull-right">
+      <div class="details-status"> <span data-animation-duration="560" data-value="100" class="animate-number"></span>% </div>
+      <a><i class="fa fa-power-off"></i></a></div>
+  </div>
+  <!-- END SIDEBAR -->
+  <!-- BEGIN PAGE CONTAINER-->
+  <div class="page-content">
+    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+    <div id="portlet-config" class="modal hide">
+      <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>Widget Settings</h3>
+      </div>
+      <div class="modal-body"> Widget settings form goes here </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="content sm-gutter">
+      <div class="page-title">
+      <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+      <h3>Servers <span class="semi-bold">Report</span></h3>
+      </div>
+     <!-- BEGIN DASHBOARD TILES -->
+     <br>
+         <!--div class="col-md-7">
+                  <div class="col-md-11">
+                    
+                    <p>Tong so server: {{SumServer}} <br><p>
+                    <br>
+                    
+                    {%for lstreport in lstreport%}           
+         <h3> <FORM action="/showall/" method="POST" enctype="multipart/form-data">{% csrf_token %}   
+            <button type="submit" name="btn" value="{{lstreport.ZoneName_id}}" class="btn">{{lstreport.ZoneName}}</button>  
+          </FORM>
+
+          <div class="progress progress-striped active progress-large">
+            <div data-percentage="0%" style="width: {{lstreport.Percent}}%; color:black; font-weight:600" class="progress-bar progress-bar-success">{{lstreport.SumZoneServer}}</div>
+          </div></h3>
+          {%endfor%}
+                    
+                  </div>
+                </div-->
+<div class="row">
+<div class="col-md-12">
+          <ul class="nav nav-tabs semi-bold" id="tab-01">
+            <li class="active"><a href="#tab1hellowWorld">Server Zone</a></li>
+            <li><a href="#tab1FollowUs">Service</a></li>
+            <li><a href="#tab1Inspire">Test</a></li>
+            <li class="dropdown"> <a class="dropdown-toggle"
+          data-toggle="dropdown"
+          href="#"> Dropdown <b class="caret"></b> </a>
+              <!--ul class="dropdown-menu">
+                <li><a href="#">New Project</a></li>
+                <li><a href="#">Edit Details</a></li>
+                <li><a href="#">View More</a></li>
+                <li class="divider"></li>
+                <li><a href="#" class="text-error">Delete Project</a></li>
+              </ul-->
+            </li>
+          </ul>
+          <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="#grid-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="remove"></a> </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab1hellowWorld">
+              <div class="row column-seperation">
+  <p class="bolder-butom">Tong So Server: {{SumServer}}</p>
+ 
+  <table style="width:100%">    
+    {%for lstreport in lstreport%} 
+    <tr> 
+    <th style="width:15%">         
+          <FORM action="/showall/" method="POST" enctype="multipart/form-data">{% csrf_token %}   
+            <button type="submit" name="btn" value="{{lstreport.ZoneName_id}}" class="btn same-buttom">{{lstreport.ZoneName}}</button>  
+          </FORM>
+    </th>
+
+    <th style="width:65%" class="col-md-7">                 
+          <div class="progress progress-striped active progress-large">
+            <div data-percentage="0%" style="width: {{lstreport.Percent}}%; color:black; font-weight:500" class="progress-bar progress-bar-success">{{lstreport.Percent}}%</div>
+          </div>
+      </th>
+      <th style="width:20%">                        
+            <div style="color:black; font-weight:600; text-align: center;">{{lstreport.SumZoneServer}}</div>        
+      </th>
+    </tr>        
+    {%endfor%}
+  </table>       
+ 
+              </div>
+            </div>
+            <div class="tab-pane" id="tab1FollowUs">
+              <div class="row">
+                <div class="col-md-12">
+
+                {{result}}
+ {%for result in result%} 
+ Site Name: {{result.name}}<br>
+ State: {{result.state}}<br>
+ AppPool: {{result.applicationPool}}<br>
+ ----------------------------------<br>
+ 
+ {%endfor%}
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab1Inspire">
+              <div class="row">
+                <div class="col-md-12">
+                  
+
+<div class="grid simple vertical green">
+    <div class="row-fluid">
+        <div class="span12">
+          <div class="grid simple ">
+            <div class="grid-title">
+              <h4><span class="semi-bold">Firewall</span></h4>
+         <div class="color-bands"></div>
+              <div class="tools"> 
+
+
+              <bottom class="btn-hide" onclick="tableToExcelFW('example2', 'Firewall')" ><i class="fa fa-cloud-download"></i></bottom>
+               <a href="javascript:;" class="collapse"></a> 
+               <!--a href="javascript:;" class="reload"></a--> 
+               <a href="javascript:;" class="remove"></a> </div>
+            </div>
+
+            <div class="grid-body ">
+              <table class="table table-hover table-condensed table-striped" id="example2" >
+                <thead>
+                  <tr>  
+                    <th style="width:10%">IP</th>
+                    <th style="width:5%">Allow</th>
+                    <th style="width:10%">Way</th>
+                    <th style="width:15%">Srouce IP</th>
+                    <th style="width:15%">Destination IP</th>
+                    <th style="width:13%">Port</th>
+                    <th style="width:20%">Description</th>
+                    <th style="width:12%">DateCreate</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+              {%for lstfirewall in datefw%}       
+                  
+                  <tr>
+                    <td><span class="">{{lstfirewall.IP}}</span></td>
+                    <td><span class="">{{lstfirewall.Allow}}</span></td>
+                    <td><span class="">{{lstfirewall.Way}}</span></td>
+                    <td><div style="height:45px; overflow-y:auto"  class="">{{lstfirewall.SourceIP}}</div></td>          
+                    <td><div style="height:45px; overflow-y:auto"  class="">{{lstfirewall.DestinationIP}}</div></td>         
+                    <td><div style="height:45px; overflow-y:auto"  class="">{{lstfirewall.Port}}</div></td>
+                    <td><div style="height:45px; overflow-y:auto"  class="">{{lstfirewall.Description}}</div></td>    
+                    <td><div style="height:45px; overflow-y:auto"  class="">{{lstfirewall.DateCreate}}</div></td>            
+                  </tr>
+                  
+               
+              {%endfor%}           
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+                  <br>
+                  <p><a href="#" class="btn-social"><i class="icon-facebook"></i></a> <a href="#" class="btn-social"><i class="icon-twitter"></i> </a> <a href="#" class="btn-social"><i class="icon-dribbble"></i></a> <a href="#" class="btn-social"><i class="icon-pinterest-sign"></i></a> <a href="#" class="btn-social"><i class="icon-tumblr"></i> </a> <a href="#" class="btn-social"><i class="icon-linkedin-sign"></i> </a> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+
+
+
+
+    <!-- END DASHBOARD TILES 
+
+    <br>
+    TEST:
+
+Tong so server: {{SumServer}} <br>
+
+Tong so server theo ZoneName:
+{%for lstreport in lstreport%} 
+{{lstreport.ZoneName}} : {{lstreport.SumZoneServer}} : {{lstreport.Percent}}<br>
+{%endfor%}
+    <br>-->
+    
+       
+          
+      </div>
+
+     </div>
+      </div>
+<!-- BEGIN CHAT --> 
+
+
+
+<!-- END CHAT -->     
+</div>
+<!-- BEGIN CORE JS FRAMEWORK-->
+<script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+<!-- END CORE JS FRAMEWORK -->
+<!-- BEGIN PAGE LEVEL JS -->
+<script src="/static/ISCSM/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- PAGE JS -->
+<script src="/static/ISCSM/assets/js/tabs_accordian.js" type="text/javascript"></script>
+<!-- BEGIN CORE TEMPLATE JS -->
+<script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+<script src="/static/ISCSM/assets/js/chat.js" type="text/javascript"></script> 
+<script src="/static/ISCSM/assets/js/demo.js" type="text/javascript"></script>
+<!-- END CORE TEMPLATE JS -->
+<!-- BEGIN Export Table --> 
+<script src="/static/ISCSM/assets/js/tableToExcelFW.js"></script>
+<script src="/static/ISCSM/assets/js/tableToExcelSV.js"></script>
+<!-- END Export Table--> 
+</body>
+</html>

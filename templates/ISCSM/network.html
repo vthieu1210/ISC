@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>ISC Server - Network</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link rel="icon" href="/static/ISCSM/assets/img/logo3.png" type="image/gif" sizes="16x16">
+    <link href="/static/ISCSM/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- END PLUGIN CSS -->
+    <!-- BEGIN CORE CSS FRAMEWORK -->
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+    <!-- END CORE CSS FRAMEWORK -->
+    <!-- BEGIN CSS TEMPLATE -->
+    <link href="/static/ISCSM/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/ISCSM/assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <!-- END CSS TEMPLATE -->
+    <style>
+    .hidebtn {
+        text-align: left !important;
+        width: 100%;
+        height: 30px;
+        color: white;
+        background-color: #22262e;
+        border:0 none;
+        padding-left: 52px;
+    }
+
+    .hidebtn:hover {
+        background: #1b1e24 !important;
+    }
+
+    strong {
+        font-size: 20px;
+        font-family: "Open Sans";
+    }
+
+    .input-group-addon.primary {
+        font-weight: 600;
+    }
+
+    .input-group-addon {
+        font-weight: 600;
+        color: #ffffff;
+        background-color: #a8a8a8;
+    }
+
+    .tab-content {
+        padding: 15px;
+    }
+
+    textarea {
+        background-color: #151616 !important;
+        color: #0a8c00 !important;
+    }
+
+    .valid {
+        color: red;
+        font-weight: bold;
+        text-align: left;
+        padding-left: 75px;
+        display: none;
+    }
+    .nav-tabs > li.active > a.first,
+    .nav-tabs > li.active > a.first:hover,
+    .nav-tabs > li.active > a.first:focus {
+      border-width: 0px;
+      border-radius: 30px 0 0 0;
+    }
+
+    .tabs-left > .nav-tabs {
+        border-radius: 30px 0;
+        font-weight: bold;
+    }
+
+    .nav-tabs > li.active > a.last,
+    .nav-tabs > li.active > a.last:hover,
+    .nav-tabs > li.active > a.last:focus {
+      border-width: 0px;
+      border-radius: 0 0 30px 0;
+    }
+
+    a {
+        transition-property: none !important;
+    }
+    </style>
+
+
+</head>
+<!-- BEGIN BODY -->
+<body class="">
+    <!-- BEGIN HEADER -->
+    {% include "common/page_header.html" %}
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        {% include "common/page_sidebar.html" %}
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+            <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+            <div id="portlet-config" class="modal hide">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"></button>
+                    <h3>Widget Settings</h3>
+                </div>
+                <div class="modal-body"> Widget settings form goes here </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content">
+                <div class="page-title"> <a href="javascript:history.back()" class="active"><i class="icon-custom-left"></i></a>
+                    <h3 class="title">Network</h3>
+                </div>
+                        <div class="tabbable tabs-left">
+                            <ul class="nav nav-tabs">
+                                <li class=""><a class="first" data-toggle="tab" href="#tab2Ping">Ping</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab2Tracert">Tracert</a></li>
+                                <li class=""><a class="last" data-toggle="tab" href="#tab2Tcproute">Tcproute</a></li>
+                            </ul>
+                            <div class="tab-content" style="margin-left: 100px;">
+                                <div class="tab-pane in active" id="intro">
+                                </div>
+                                <div class="tab-pane" id="tab2Ping">
+                                    <div class="container">
+                                        <div class="row-fluid">
+                                            <div class="col-md-5">
+                                                <div class="row-fluid" style="text-align: center;">
+                                                    <h3 class="title" style="text-align: left;">Ping</h3>
+                                                    <div class="input-group" style="padding: 20px 0 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">From</span>
+                                                        <input type="text" id="src_ping" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="src_warn_ping" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">To</span>
+                                                        <input type="text" id="dest_ping" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="dest_warn_ping" class="valid">IP is invalid.</div>
+                                                    <div class="row" style="padding: 10px 0; display: none;" id="loading_ping">
+                                                        <img src="/static/ISCSM/assets/img/loading.gif">&nbsp;
+                                                        <span style="font-weight: 700;">Loading</span>
+                                                    </div>
+                                                    <div class="row" style="padding: 10px 0;">
+                                                        <button type="submit" id="btn_ping" class="btn btn-primary btn-cons" >Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5" style="width: 420px;">
+                                                <label for="result_ping"><strong>Result</strong></label>
+                                                <textarea id="result_ping" class="form-control" readonly style="width: 390px; height: -webkit-fill-available;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2Tracert">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="row-fluid" style="text-align: center;">
+                                                    <h3 class="title" style="text-align: left;">Tracert</h3>
+                                                    <div class="input-group" style="padding: 20px 0 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">From</span>
+                                                        <input type="text" id="src_tracert" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="src_warn_tracert" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">To</span>
+                                                        <input type="text" id="dest_tracert" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="dest_warn_tracert" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 455px;">
+                                                        <span class="input-group-addon" style="width: 75px;">Timeout</span>
+                                                        <input type="text" id="timeout" class="form-control" placeholder="Default: 500ms">
+                                                    </div>
+                                                    <div class="row" style="padding: 10px 0; display: none;" id="loading_tracert">
+                                                        <img src="/static/ISCSM/assets/img/loading.gif">&nbsp;
+                                                        <span style="font-weight: 700;">Loading</span>
+                                                    </div>
+                                                    <div class="row" style="padding: 10px 0;">
+                                                        <button type="submit" id="btn_tracert" class="btn btn-primary btn-cons" >Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label for="result_tracert"><strong>Result</strong></label>
+                                                <textarea id="result_tracert" class="form-control" readonly style="width: 390px; height: -webkit-fill-available;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2Telnet">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="row-fluid" style="text-align: center;">
+                                                    <h3 class="title" style="text-align: left;">Telnet</h3>
+                                                    <div class="input-group" style="padding: 20px 0 10px 0; width: 350px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">From</span>
+                                                        <input type="text" id="src_telnet" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="src_warn_telnet" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 350px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">To</span>
+                                                        <input type="text" id="dest_telnet" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="dest_warn_telnet" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 350px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">Port</span>
+                                                        <input type="text" class="form-control" id="port_telnet" placeholder="Port">
+                                                    </div>
+                                                    <div id="porttelnet_validate" class="valid" style="padding-left: 75px;">Port is invalid.</div>
+                                                    <div id="telnet_success" style="padding: 10px 0; display: none;">
+                                                        <i class="inline glyphicon glyphicon-ok" style="color: green;"></i>
+                                                        <div class="inline" style="font-weight: bold;">&nbsp;Telnet Successed!</div>
+                                                    </div>
+                                                    <div id="telnet_fail" style="padding: 10px 0; display: none;">
+                                                        <i class="inline glyphicon glyphicon-remove" style="color: red;"></i>
+                                                        <div class="inline" style="font-weight: bold;">&nbsp;Telnet Failed!</div>
+                                                    </div>
+                                                    <div class="row" style="padding: 10px 0;">
+                                                        <button type="submit" id="btn_telnet" class="btn btn-primary btn-cons" >Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2Tcproute">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="row-fluid" style="text-align: center;">
+                                                    <h3 class="title" style="text-align: left;">Tcproute</h3>
+                                                    <div class="input-group" style="padding: 20px 0 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">From</span>
+                                                        <input type="text" id="src_tcproute" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="src_warn_tcproute" class="valid">IP is invalid.</div>
+                                                    <div class="input-group" style="padding: 10px 0; width: 455px;">
+                                                        <span class="input-group-addon primary" style="width: 75px;">To</span>
+                                                        <input type="text" id="dest_tcproute" class="form-control" placeholder="IP Address">
+                                                    </div>
+                                                    <div id="dest_warn_tcproute" class="valid">IP is invalid.</div>
+
+                                                    <div class="row" style="width: 455px;">
+                                                        <div class="col-md-5">
+                                                            <div class="input-group" style="padding: 10px 0; width: 190px;">
+                                                                <span class="input-group-addon primary" style="width: 75px;">Port</span>
+                                                                <input type="text" class="form-control" id="port_tcproute">
+                                                            </div>
+                                                            <div id="port_warn_tcproute" class="valid" style="padding-left: 75px; width: 190px;">Port is invalid.</div>
+                                                        </div>
+                                                        <div class="col-md-2"></div>
+                                                        <div class="col-md-5">
+                                                            <div class="input-group" style="padding: 10px 0; width: 190px;">
+                                                                <span class="input-group-addon primary" style="width: 75px;">Interface</span>
+                                                                <input type="text" class="form-control" id="int_tcproute">
+                                                            </div>
+                                                            <div id="int_warn_tcproute" class="valid" style="padding-left: 70px; width: 190px;">Interface is invalid.</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" style="padding: 10px 0; display: none;" id="loading_tcproute">
+                                                        <img src="/static/ISCSM/assets/img/loading.gif">&nbsp;
+                                                        <span style="font-weight: 700;">Loading</span>
+                                                    </div>
+
+                                                    <div class="row" style="padding: 10px 0;">
+                                                        <button type="submit" id="btn_list_int" class="btn btn-primary btn-cons" >Show interface</button>
+                                                        <button type="submit" id="btn_tcproute" class="btn btn-primary btn-cons" >Submit</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label for="result_tcproute"><strong>Result</strong></label>
+                                                <textarea id="result_tcproute" class="form-control" readonly style="width: 390px; height: -webkit-fill-available;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN CHAT -->
+        <div class="chat-window-wrapper">
+            <div id="main-chat-wrapper" class="inner-content">
+                <div class="chat-window-wrapper scroller scrollbar-dynamic" id="chat-users" >
+                    <div class="side-widget">
+                        <div class="side-widget-title">Message</div>
+                        <div class="side-widget-content">
+                            <div id="groups-list">
+                                <ul class="groups" >
+                                    <li><a><div class="status-icon green"></div>Select Ping, Tracert or Telnet </a></li>
+                                    <li><a><div class="status-icon black"></div>to check Network</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END CHAT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
+    <script src="/static/ISCSM/assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/breakpoints.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>
+    <!-- END CORE JS FRAMEWORK -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="/static/ISCSM/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- PAGE JS -->
+    <script src="/static/ISCSM/assets/js/tabs_accordian.js" type="text/javascript"></script>
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="/static/ISCSM/assets/js/core.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/chat.js" type="text/javascript"></script>
+    <script src="/static/ISCSM/assets/js/demo.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <script>
+        $(document).ready(function () {
+            $('#btn_ping').click(function () {
+                var src = $('#src_ping').val();
+                var dest = $('#dest_ping').val();
+
+                $('#src_warn_ping').css({'display': 'none'});
+                $('#dest_warn_ping').css({'display': 'none'});
+
+                if (!src) {
+                    $('#src_warn_ping').css({'display': 'block'});
+                }
+                if (!dest) {
+                    $('#dest_warn_ping').css({'display': 'block'});
+                }
+
+                if ((src) && (dest)) {
+                    $('#result_ping').val('');
+                    $('#btn_ping').css({'display': 'none'});
+                    $('#loading_ping').css({'display': 'block'});
+                    $.ajax({
+                        url:        '/network/',
+                        data:       {
+                            'src':      src,
+                            'dest':     dest,
+                            'action':   'ping',
+                        },
+                        dataType:   'json',
+                        success:    function (data) {
+                            $('#result_ping').val(data.result);
+                            $('#btn_ping').css({'display': 'initial'});
+                            $('#loading_ping').css({'display': 'none'});
+                        },
+                        error: function () {
+                            $('#btn_ping').css({'display': 'initial'});
+                            $('#loading_ping').css({'display': 'none'});
+                        },
+                    });
+                }
+            });
+            $('#btn_tracert').click(function () {
+                var src = $('#src_tracert').val();
+                var dest = $('#dest_tracert').val();
+                var timeout = $('#timeout').val();
+
+                $('#result_tracert').val('');
+                $('#src_warn_tracert').css({'display': 'none'});
+                $('#dest_warn_tracert').css({'display': 'none'});
+                $('#btn_tracert').css({'display': 'none'});
+                $('#loading_tracert').css({'display': 'block'});
+
+                $.ajax({
+                    url:        '/network/',
+                    data:       {
+                        'src':          src,
+                        'dest':         dest,
+                        'timeout':      timeout,
+                        'action':       'tracert',
+                    },
+                    dataType:   'json',
+                    success: function (data) {
+                        if ((!data.src) && (!data.dest)) {
+                            $('#src_warn_tracert').css({'display': 'block'});
+                            $('#dest_warn_tracert').css({'display': 'block'});
+                        } else if (!data.dest) {
+                            $('#dest_warn_tracert').css({'display': 'block'});
+                        } else if (!data.src) {
+                            $('#src_warn_tracert').css({'display': 'block'});
+                        } else {
+                            $('#result_tracert').val(data.result);
+                        }
+                        $('#btn_tracert').css({'display': 'initial'});
+                        $('#loading_tracert').css({'display': 'none'});
+                    },
+                    error: function () {
+                        $('#btn_tracert').css({'display': 'initial'});
+                        $('#loading_tracert').css({'display': 'none'});
+                    }
+                });
+            });
+            $('#btn_telnet').click(function () {
+                var src = $('#src_telnet').val();
+                var dest = $('#dest_telnet').val();
+                var port = $('#port_telnet').val();
+
+                $('#btn_telnet').css({'display': 'none'});
+                $('#telnet_success').css({'display': 'none'});
+                $('#telnet_fail').css({'display': 'none'});
+                $('#src_warn_telnet').css({'display': 'none'});
+                $('#dest_warn_telnet').css({'display': 'none'});
+                $('#porttelnet_validate').css({'display': 'none'});
+
+                $.ajax({
+                    url:        '/network/',
+                    data:       {
+                        'src':      src,
+                        'dest':     dest,
+                        'port':     port,
+                        'action':   'telnet',
+                    },
+                    dataType:   'json',
+                    success:    function (data) {
+                        if ((!data.src) && (!data.dest) && (!data.port)) {
+                            $('#src_warn_telnet').css({'display': 'block'});
+                            $('#dest_warn_telnet').css({'display': 'block'});
+                            $('#porttelnet_validate').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        } else if (data.result == 0){
+                            console.log(data.result);
+                            $('#telnet_success').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        } else {
+                            $('#telnet_fail').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        }
+                        if (!data.src) {
+                            $('#src_warn_telnet').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        } if (!data.dest) {
+                            $('#dest_warn_telnet').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        } if (!data.port) {
+                            $('#porttelnet_validate').css({'display': 'block'});
+                            $('#btn_telnet').css({'display': 'initial'});
+                        }
+                    },
+                });
+            });
+            $('#btn_list_int').click(function () {
+                var src = $('#src_tcproute').val();
+
+                $('#result_tcproute').val('');
+                $('#btn_list_int').css({'display': 'none'});
+                $('#btn_tcproute').css({'display': 'none'});
+                $('#src_warn_tcproute').css({'display': 'none'});
+                $('#dest_warn_tcproute').css({'display': 'none'});
+                $('#port_warn_tcproute').css({'display': 'none'});
+                $('#int_warn_tcproute').css({'display': 'none'});
+                $('#loading_tcproute').css({'display': 'block'});
+
+                $.ajax({
+                    url:        '/network/',
+                    data:       {
+                        'src':      src,
+                        'action':   'list_int',
+                    },
+                    dataType:   'json',
+                    success:    function (data) {
+                        if (!data.result) {
+                            $('#src_warn_tcproute').css({'display': 'block'});
+                        }
+                        else {
+                            $('#result_tcproute').val(data.result);
+                        }
+                        $('#btn_list_int').css({'display': 'initial'});
+                        $('#btn_tcproute').css({'display': 'initial'});
+                        $('#loading_tcproute').css({'display': 'none'});
+                    },
+                    error:      function () {
+                        $('#btn_list_int').css({'display': 'initial'});
+                        $('#btn_tcproute').css({'display': 'initial'});
+                        $('#loading_tcproute').css({'display': 'none'});
+                    }
+                });
+            });
+            $('#btn_tcproute').click(function () {
+                var src = $('#src_tcproute').val();
+                var dest = $('#dest_tcproute').val();
+                var port = $('#port_tcproute').val();
+                var int = $('#int_tcproute').val();
+
+                $('#result_tcproute').val('');
+                $('#btn_list_int').css({'display': 'none'});
+                $('#btn_tcproute').css({'display': 'none'});
+                $('#src_warn_tcproute').css({'display': 'none'});
+                $('#dest_warn_tcproute').css({'display': 'none'});
+                $('#port_warn_tcproute').css({'display': 'none'});
+                $('#int_warn_tcproute').css({'display': 'none'});
+                $('#loading_tcproute').css({'display': 'block'});
+
+                $.ajax({
+                    url:        '/network/',
+                    data:       {
+                        'src':      src,
+                        'dest':     dest,
+                        'port':     port,
+                        'int':      int,
+                        'action':   'tcproute',
+                    },
+                    dataType:   'json',
+                    success:    function (data) {
+                        if (!data.src) {
+                            $('#src_warn_tcproute').css({'display': 'block'});
+                        }
+                        if (!data.dest) {
+                            $('#dest_warn_tcproute').css({'display': 'block'});
+                        }
+                        if (!data.port) {
+                            $('#port_warn_tcproute').css({'display': 'block'});
+                        }
+                        if (!data.int) {
+                            $('#int_warn_tcproute').css({'display': 'block'});
+                        }
+                        if ((data.src) && (data.dest) && (data.port) && (data.int)) {
+                            $('#result_tcproute').val(data.result);
+                        }
+                        $('#btn_list_int').css({'display': 'initial'});
+                        $('#btn_tcproute').css({'display': 'initial'});
+                        $('#loading_tcproute').css({'display': 'none'});
+                    },
+                    error:  function () {
+                        $('#btn_list_int').css({'display': 'initial'});
+                        $('#btn_tcproute').css({'display': 'initial'});
+                        $('#loading_tcproute').css({'display': 'none'});
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
