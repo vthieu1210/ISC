@@ -9,6 +9,7 @@ class ZoneNotExist(error):
 
 @timeout_decorator.timeout(1, use_signals=False)
 def telnetRadius(zone, index, cmd):
+    data = ''
     if zone in ['HCM1', 'HCM2', 'HNI', 'CAM1', 'CAM2']:
         if zone == 'HCM1':
             telnet = telnetlib.Telnet("118.69.241.%s" % index)

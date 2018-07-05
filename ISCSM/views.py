@@ -701,7 +701,7 @@ def monitorRadius(request):
             #Continue maintain existed connection
             if pattern.match(file) and pattern.match(file).group() == logfile_name:
                 try:
-                    data = telnetRadius(zone, index)
+                    data = telnetRadius(zone, index, 'moni')
                     f = open('/media/radius_log/%s' % logfile_name, 'w')
                     f.write(data)
                     f.close()
@@ -716,7 +716,7 @@ def monitorRadius(request):
                 return HttpResponse(data)
         #First time send request and telnet connection still not exists
         try:
-            data = telnetRadius(zone, index)
+            data = telnetRadius(zone, index, 'moni')
             f = open('/media/radius_log/%s' % logfile_name, 'w')
             f.write(data)
             f.close()
@@ -724,6 +724,10 @@ def monitorRadius(request):
             data = 'Time out!\n'
         except ZoneNotExist as err:
             data = err
+        return HttpResponse(data)
+
+    if request.GET.get('action') == 'show_config':
+        data = telnetRadius(zone, index, 'show_config')
         return HttpResponse(data)
 
     if request.GET.get('action') == 'stop':
