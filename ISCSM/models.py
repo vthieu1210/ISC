@@ -69,7 +69,7 @@ class Service(models.Model):
     Header = models.TextField(max_length=800,blank=True,null=True)
     Body = models.TextField(max_length=1000,blank=True,null=True)
     DateCreate =  models.DateField(default=datetime.today, blank=True, null=True)
-    Owner = models.CharField(max_length=50,blank=True,null=True)
+    Author = models.CharField(max_length=50,blank=True,null=True)
 
     def __unicode__(self):
         return self.Description

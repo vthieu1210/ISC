@@ -254,20 +254,8 @@ def _getServerInfo(pk):
                     'RunningAs'        :    srvc.RunningAs,
                     'Description'    :    srvc.Description,
                     'DateCreate'    :    srvc.DateCreate,
-                    'author'            :    srvc.author,
+                    'author'            :    srvc.Author,
                 }
-    for fire in Firewall.objects.all():
-        if fire.Server_id == int(pk):
-            lst['Firewall'][fire.id]={
-                    'id'            :    fire.id,
-                    'Allow'            :    fire.Allow,
-                    'Way'            :    fire.get_Way_display,
-                    'Port'            :    fire.Port,
-                    'SourceIP'        :    fire.SourceIP,
-                    'DestinationIP'    :    fire.DestinationIP,
-                    'Description'    :    fire.Description,
-                    'DateCreate'    :    fire.DateCreate,
-            }
     for swt in Switch.objects.all():
         if swt.Server_id == int(pk):
             lst['Switch'][swt.id]={
@@ -765,8 +753,8 @@ def logTask(request):
                                                      'errors':  validate.errors,
                                                      'task_request': {
                                                         'subject':          request.POST.get('subject'),
-                                                        'start_date':        request.POST.get('start_date'),
-                                                        'due_date':          request.POST.get('due_date'),
+                                                        'start_date':       request.POST.get('start_date'),
+                                                        'due_date':         request.POST.get('due_date'),
                                                         'done':             request.POST.get('done'),
                                                         'status':           request.POST.get('status'),
                                                         'assignee':         request.POST.get('assignee'),
