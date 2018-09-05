@@ -42,8 +42,10 @@ class Switch(models.Model):
     SwitchIP = models.GenericIPAddressField(protocol='IPv4', blank=True,null=True)
     Cisco='cso'
     DrayTek='dtk'
-    SW = ((Cisco,'Cisco'),(DrayTek,'DrayTek'),)
-    SwitchType = models.CharField(max_length=5, choices=SW, default=DrayTek,)
+    Juniper='juniper'
+    HPE='hpe'
+    SW = ((Cisco,'Cisco'),(DrayTek,'DrayTek'),(Juniper,'Juniper'),(HPE,'HPE'))
+    SwitchType = models.CharField(max_length=10, choices=SW, default=DrayTek,)
     SwitchPort = models.CharField(max_length=10, blank=True,null=True)
     SwitchLocation = models.CharField(max_length=10,blank=True, null=True)
     Server = models.ForeignKey(ServerInfo)

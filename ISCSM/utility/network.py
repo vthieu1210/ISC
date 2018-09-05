@@ -10,7 +10,7 @@ import socket
 
 def pingHost(src_ip, dest_ip):
     try:
-        rm_host = winrm.Session(src_ip, auth=('hieuvt','Hieu@1234'))
+        rm_host = winrm.Session(src_ip, auth=('userwinrm','U$erwinrm'))
         result = rm_host.run_cmd("ping %s" % dest_ip )
         return  {'result':          result,
                  'status_code':     result.status_code,}
